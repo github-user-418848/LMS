@@ -1,0 +1,4 @@
+# This is used for disallowing the files from directory listing them
+# The files under this directory is for librarians
+
+Options -Indexes

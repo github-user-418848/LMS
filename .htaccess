@@ -1,0 +1,23 @@
+# This is used for disallowing the files from displaying
+Options -Indexes
+
+# Headers Content Security Policy. To mitigate malicious users to take advantage of cross-site scripting, cookie stealing, inserting an iframe.. In case there would be a security hole
+
+<IfModule mod_headers.c>
+	
+	Header set X-XSS-Protection "1; mode=block"
+	Header set X-Frame-Options "Deny"
+	Header set X-Content-Type-Options "nosniff"
+	Header set Referrer-Policy "same-origin"
+	#Header set Content-Type "text/html; charset=utf-8"
+
+	# RewriteEngine On
+	# RewriteCond %{REQUEST_FILENAME} !-f
+	# RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+	ErrorDocument 403 "<h1>Forbidden</h1>"
+	ErrorDocument 404 "<h1>Not Found</h1>"
+	ErrorDocument 405 "<h1>Not Allowed</h1>"
+	ErrorDocument 500 "<h1>Houston, we may have a problem.</h1>"
+
+</IfModule>

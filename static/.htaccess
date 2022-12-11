@@ -1,0 +1,4 @@
+# This is used for disallowing the files from displaying
+# The files under this directory is used for styles and images/media files.
+
+Options -Indexes

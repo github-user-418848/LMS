@@ -1,0 +1,4 @@
+# This is used for disallowing the files from accessing them
+# The files under this directory is used for connecting the database and declaring the global variables
+
+deny from all

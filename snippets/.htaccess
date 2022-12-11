@@ -1,0 +1,4 @@
+# This is used for disallowing the files from accessing them
+# The files under this directory are just used for header and footer
+
+deny from all
