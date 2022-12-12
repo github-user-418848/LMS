@@ -28,7 +28,7 @@
                     <a href="users.php" class="btn">Cancel</a>
                 </div>
                 <div class="col-md-5">
-                    <input type="submit" value="Update User" name="submit">
+                    <input type="submit" value="Add User" name="submit">
                 </div>
             </div>
         </form>

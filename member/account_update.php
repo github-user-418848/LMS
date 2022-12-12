@@ -45,8 +45,8 @@
         $request -> CSRF($_POST["csrf_token"]);
 
         $user = new User(
-            $request -> TextField($_POST["username"]),
             $request -> EmailField($_POST["email"]),
+            $request -> TextField($_POST["username"]),
             $request -> PasswordField($_POST["password"]),
             "false", "false"
         );

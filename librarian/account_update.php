@@ -5,7 +5,6 @@
     if (!$user -> Is_Logged_in() && !$user -> Is_Admin()) {
         Redirect(location: BASE_URL);
     }
-    
 
     $user_list = $user -> List($_SESSION["id"]);
 
@@ -16,7 +15,7 @@
     </div>
     <div class="col-md-7">
         
-        <?php foreach($user_list as $user_detail): ?>
+        <?php foreach($user_list as $user_detail): $pass = $user_detail -> password; ?>
         <form method="post">
             <input type="text" name="email" id="email" value="<?=$user_detail -> email ?>" placeholder="Email">
             <input type="text" name="username" id="username" value="<?=$user_detail -> username ?>" placeholder="Username">
@@ -31,7 +30,7 @@
                     <a href="users.php" class="btn">Cancel</a>
                 </div>
                 <div class="col-md-5">
-                    <input type="submit" value="Update User" name="submit">
+                    <input type="submit" value="Update" name="submit">
                 </div>
             </div>
         </form>

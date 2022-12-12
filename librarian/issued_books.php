@@ -5,18 +5,18 @@
     if (!$user -> Is_Logged_in() || !$user -> Is_Admin()) {
         Redirect(location: BASE_URL);
     }
-    $pending_books = new Pending_Books();
+    $issued_books = new Issued_Books();
 
     // if (isset($_GET["submit"])) {
     //     $request = new Request_Validate($_GET, ["s", "csrf_token"]);
-    //     $request -> redirect = "pending_books.php";
+    //     $request -> redirect = "issued_books.php";
     //     $request -> CSRF($_GET["csrf_token"]);
     //     $search = $request -> TextField($_GET["s"], 1);
 
     //     $pending_books = new Pending_Books("%{$search}%", "%{$search}%", "%{$search}%");
     // }
 
-    $pending_books_list = $pending_books -> List();
+    $issued_books_list = $issued_books -> List();
 
 ?>    
     <div class="row justify-content-center text-center">

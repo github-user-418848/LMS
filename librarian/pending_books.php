@@ -7,14 +7,14 @@
     }
     $pending_books = new Pending_Books();
 
-    // if (isset($_GET["submit"])) {
-    //     $request = new Request_Validate($_GET, ["s", "csrf_token"]);
-    //     $request -> redirect = "pending_books.php";
-    //     $request -> CSRF($_GET["csrf_token"]);
-    //     $search = $request -> TextField($_GET["s"], 1);
+    if (isset($_GET["submit"])) {
+        $request = new Request_Validate($_GET, ["s", "csrf_token"]);
+        $request -> redirect = "pending_books.php";
+        $request -> CSRF($_GET["csrf_token"]);
+        $search = $request -> TextField($_GET["s"], 1);
 
-    //     $pending_books = new Pending_Books("%{$search}%", "%{$search}%", "%{$search}%");
-    // }
+        $pending_books = new Pending_Books("%{$search}%", "%{$search}%", "%{$search}%");
+    }
 
     $pending_books_list = $pending_books -> List();
 
@@ -29,14 +29,11 @@
             </form>
             <?=isset($search) ? "<h3>Search results for: {$search}</h3>" : ""?>
         </div>
-        <div class="col-md-3">
-            <a class="btn" href="book_add.php">+ Assign a new book to a user</a>
-        </div>
     </div>
     <?php if (empty($pending_books_list)): ?>
-        <h1 class="text-center d-flex align-items-center justify-content-center" style="min-height: 50vh">No Pending Books</h1>
+        <hr><h1 class="text-center d-flex align-items-center justify-content-center" style="min-height: 50vh">No Pending Books</h1><hr>
     <?php elseif (!empty($pending_books_list)): ?>
-    <div class="row justify-content-center align-items-stretch">
+    <div class="row justify-content-center align-items-stretch col-md-12">
         <div class="table-container">
             <table class="mx-auto table" cellspacing="0" style="overflow-x: auto">
                 <tr class="table-head">
@@ -55,7 +52,7 @@
                     <td><?= $pending -> date ?></td>
                     <td><?= $pending -> copies ?></td>
                     <td>
-                        <a href='pending_books.php?id=<?=$pending -> id?>&token=<?=$_SESSION["csrf_token"] ?>'>
+                        <a href='pending_book_approve.php?id=<?=$pending -> id?>&token=<?=$_SESSION["csrf_token"] ?>'>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
