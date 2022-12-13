@@ -53,7 +53,12 @@
         </div>
     </div>
 <?php endif; ?>
-
+<script nonce="<?=$_SESSION['nonce']?>">
+    const back = document.getElementById("back");
+    back.onclick = function () {
+        window.history.back();
+    }
+</script>
 <?php
 
     if (isset($_POST["submit"])) {
@@ -61,11 +66,11 @@
         $request = new Request_Validate($_POST, ["date", "csrf_token"]);
         $request -> CSRF($_POST["csrf_token"]);
 
-        $pending_book = new Pending_Book($pending_book_details -> username, $pending_book_details -> copies, $pending_book_details -> book_isbn);
+        $pending_book = new Pending_Books($pending_book_details -> username, $pending_book_details -> book_isbn, $pending_book_details -> copies);
         $pending_book -> Approve($pending_book_details -> id, $request -> DateField($_POST["date"]));
 
         unset($_SESSION["csrf_token"]);
-        Redirect("Book has been added", "books.php");
+        Redirect("User request has been approved", "pending_books.php");
     }
 
     require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/footer.php");?>

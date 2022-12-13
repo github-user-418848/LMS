@@ -6,7 +6,7 @@
         Redirect(location: BASE_URL);
     }
 
-    $user_list = $user -> List($_SESSION["id"]);
+    $user_detail = $user -> List($_SESSION["id"]);
 
 ?>
 <div class="row justify-content-center">
@@ -14,8 +14,6 @@
         <h1>My Account</h1>
     </div>
     <div class="col-md-7">
-        
-        <?php foreach($user_list as $user_detail): $pass = $user_detail -> password; ?>
         <form method="post">
             <input type="text" name="email" id="email" value="<?=$user_detail -> email ?>" placeholder="Email">
             <input type="text" name="username" id="username" value="<?=$user_detail -> username ?>" placeholder="Username">
@@ -35,7 +33,6 @@
             </div>
         </form>
         <a href="account_deactivate.php?ccsrf_token=<?= $_SESSION["csrf_token"] ?>">Deactivate My Account</a>
-        <?php endforeach; ?>
     </div>
 </div>
 <?php

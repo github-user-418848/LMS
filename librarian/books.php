@@ -30,6 +30,9 @@
             </form>
             <?=isset($search) ? "<h3>Search results for: {$search}</h3>" : ""?>
         </div>
+        <div class="col-md-3">
+            <a class="btn" href="book_add.php">+ Add New Book</a>
+        </div>
     </div>
     <?php if (!empty($book_list)): ?>
         <div class="row justify-content-center">

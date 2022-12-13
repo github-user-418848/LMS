@@ -36,6 +36,12 @@
         </form>
     </div>
 </div>
+<script nonce="<?=$_SESSION['nonce']?>">
+    const back = document.getElementById("back");
+    back.onclick = function () {
+        window.history.back();
+    }
+</script>
 <?php
 
     if (isset($_POST["submit"])) {

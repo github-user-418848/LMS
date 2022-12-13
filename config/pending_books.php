@@ -48,22 +48,28 @@ class Pending_Books extends DB {
     }
     
     public function Approve($id, $date) {
-        // decrease number of books
-        // insert into issued books
         
-        $stmt = $this -> conn_str -> prepare("UPDATE book SET copies=:copies WHERE isbn=:isbn AND DELETE pending_book_requests WHERE id=:id");
-        $stmt -> bindValue(":copies", $this -> copies);
+        $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE isbn=?");
+        $stmt -> execute(array($this -> book));
+        $book = $stmt -> fetch();
+        $remaining_copies = $book -> copies - $this -> copies;
+
+        $stmt = $this -> conn_str -> prepare("SELECT * FROM pending_book_requests WHERE id=?");
+        $stmt->execute(array($id));
+        $pending_book = $stmt -> fetch();
+        
+        $stmt = $this -> conn_str -> prepare("UPDATE book SET copies=:copies WHERE isbn=:isbn");
+        $stmt -> bindValue(":copies", $remaining_copies);
         $stmt -> bindValue(":isbn", $this -> book);
-        $stmt -> bindValue(":id", $id);
         $stmt -> execute();
 
-        // $stmt = $this -> conn_str -> prepare("DELETE FROM pending_book_requests WHERE id=?");
-        // $stmt->execute(array($id));
-
-        if ($this -> copies <= $book -> copies) {
-            $stmt = $this -> conn_str -> prepare("INSERT INTO pending_book_requests (member_name, book_isbn, copies) values (?, ?, ?)");
-            $stmt->execute($this -> data);
-        }
+        $stmt = $this -> conn_str -> prepare("INSERT INTO book_issue_log (member_name, book_isbn, copies, date_requested, due_date) VALUES (?, ?, ?, ?, ?)");
+        array_push($this -> data, $pending_book -> date);
+        array_push($this -> data, $date);
+        $stmt->execute($this -> data);
+        
+        $stmt = $this -> conn_str -> prepare("DELETE FROM pending_book_requests WHERE id=?");
+        $stmt->execute(array($id));
 
     }
 
@@ -73,17 +79,41 @@ class Pending_Books extends DB {
     }
 
     public function Save() {
-        
-        $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE isbn=?");
-        $stmt->execute(array($this -> book));
+        $stmt = $this -> conn_str -> prepare("SELECT copies FROM book WHERE isbn=?");
+        $stmt -> execute(array($this -> book));
         $book = $stmt -> fetch();
 
-        if ($this -> copies <= $book -> copies) {
-            $stmt = $this -> conn_str -> prepare("INSERT INTO pending_book_requests (member_name, book_isbn, copies) values (?, ?, ?)");
-            $stmt->execute($this -> data);
+        $stmt = $this -> conn_str -> prepare(
+            "SELECT user.username 'pending_book_username', book.isbn 'isbn'
+            FROM pending_book_requests 
+            JOIN user ON (pending_book_requests.member_name=user.username) 
+            JOIN book ON (pending_book_requests.book_isbn=book.isbn)
+            WHERE user.username=? AND book.isbn=?"
+        );
+        $stmt -> execute(array($this -> user, $this -> book));
+        $pending_book = $stmt -> fetchAll();
+        
+
+        if (empty($pending_book)) {
+            if ($this -> copies <= $book -> copies) {
+                $stmt2 = $this -> conn_str -> prepare("INSERT INTO pending_book_requests (member_name, book_isbn, copies) values (?, ?, ?)");
+                $stmt2 -> execute(array($this -> user, $this -> book, $this -> copies));
+            }
+            else {
+                Redirect("Number of copies should be less than at least {$book -> copies}");
+            }
         }
         else {
-            Redirect("Number of copies should be less than {$book -> copies}");
+            Redirect("You have already requested for this book");
         }
+        // $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE isbn=?");
+        // $stmt->execute(array($this -> book));
+        // $book = $stmt -> fetch();
+
+        // if ($this -> copies <= $book -> copies) {
+        // }
+        // else {
+        //     Redirect("Number of copies should be less than {$book -> copies}");
+        // }
     }
 }

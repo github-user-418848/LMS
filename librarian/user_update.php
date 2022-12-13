@@ -11,9 +11,9 @@
     $id = $request -> DigitField($_GET["id"]);
     $request -> CSRF($_GET["token"]);
 
-    $user_list = $user -> List($id);
+    $user_detail = $user -> List($id);
 
-    if (empty($user_list)) {
+    if (empty($user_detail)) {
         Redirect("Invalid ID", "users.php");
     }
 
@@ -23,7 +23,6 @@
         <h1>Update User</h1>
     </div>
     <div class="col-md-7">
-        <?php foreach($user_list as $user_detail): ?>
         <form method="post">
             <input type="text" name="username" id="username" value="<?=$user_detail -> username ?>" placeholder="Username">
             <input type="text" name="email" id="email" value="<?=$user_detail -> email ?>" placeholder="Email">
@@ -46,9 +45,14 @@
                 </div>
             </div>
         </form>
-        <?php endforeach; ?>
     </div>
 </div>
+<script nonce="<?=$_SESSION['nonce']?>">
+    const back = document.getElementById("back");
+    back.onclick = function () {
+        window.history.back();
+    }
+</script>
 <?php
 
     if (isset($_POST["submit"])) {

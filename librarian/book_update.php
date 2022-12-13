@@ -18,9 +18,9 @@
 
     $id = $request -> DigitField($_GET["id"]);
     $request -> CSRF($_GET["token"]);
-    $book_details = $book -> List($id);
+    $book_detail = $book -> List($id);
 
-    if (empty($book_details)) {
+    if (empty($book_detail)) {
         Redirect("Invalid ID", "books.php");
     }
 
@@ -35,7 +35,6 @@
         <h1>Update Book</h1>
     </div>
     <div class="col-md-7">
-        <?php foreach($book_details as $book_detail): ?>
         <form method="post">
             <input type="text" name="isbn" id="isbn" value="<?=$book_detail -> isbn ?>">
             <input type="text" name="title" id="title" value="<?=$book_detail -> title ?>">
@@ -56,9 +55,14 @@
                 </div>
             </div>
         </form>
-        <?php endforeach; ?>
     </div>
 </div>
+<script nonce="<?=$_SESSION['nonce']?>">
+    const back = document.getElementById("back");
+    back.onclick = function () {
+        window.history.back();
+    }
+</script>
 <?php
 
 

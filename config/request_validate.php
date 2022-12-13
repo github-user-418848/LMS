@@ -74,9 +74,9 @@ class Request_Validate {
     }
 
     public function DateField($value) {
-        $arr  = explode('/', $value);
+        $arr  = explode('-', $value);
         if (count($arr) == 3) {
-            return (checkdate($this -> DigitField($arr[0]), $this -> DigitField($arr[1]), $this -> DigitField($arr[2]))) ? $arr[0]."/".$arr[1]."/".$arr[2] : "Not a valid date";
+            return (checkdate($this -> DigitField($arr[1]), $this -> DigitField($arr[2]), $this -> DigitField($arr[0]))) ? $arr[0]."-".$arr[1]."-".$arr[2] : "Not a valid date";
         }
         else {
             Redirect("Not a valid date", $this -> redirect);

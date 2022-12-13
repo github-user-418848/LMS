@@ -71,6 +71,7 @@ class User extends DB {
         if ($id !== null) {
             $stmt = $this -> conn_str -> prepare("SELECT * FROM user WHERE id=?");
             $stmt->execute(array($id));
+            return $stmt -> fetch();
         }
         elseif ($this -> email !== null) {
             $stmt = $this -> conn_str -> prepare("SELECT * FROM user WHERE email LIKE :email OR username LIKE :username OR is_active LIKE :is_active OR is_admin LIKE :is_admin AND  id != {$_SESSION["id"]} LIMIT 50");
@@ -79,12 +80,13 @@ class User extends DB {
             $stmt -> bindParam('is_active', $this -> is_active);
             $stmt -> bindParam('is_admin', $this -> is_admin);
             $stmt->execute();
+            return $stmt -> fetchAll();
         }
         else {
             $stmt = $this -> conn_str -> prepare("SELECT * FROM user WHERE id != {$_SESSION["id"]} LIMIT 50");
             $stmt->execute();
+            return $stmt -> fetchAll();
         }
-        return $stmt -> fetchAll();
     }
     
     public function Update($id) {

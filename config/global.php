@@ -19,7 +19,6 @@
 
     define("HOSTNAME", $_SERVER["HTTP_HOST"]);
     define("PORT", "3306");
-    // define("PORT", "3307");
     define("USERNAME", "root");
     define("PASSWORD", "");
     define("DB", "librarygh");

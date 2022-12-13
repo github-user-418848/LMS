@@ -18,13 +18,13 @@ class Book_Issue_Log extends DB {
     }
 
     
-    public function List($user=null) {
+    public function List($user=null, $limit=50) {
         if ($user !== null) {
-            $stmt = $this -> conn_str -> prepare("SELECT * FROM book_issue_log WHERE member_name=?");
+            $stmt = $this -> conn_str -> prepare("SELECT * FROM book_issue_log WHERE member_name=? LIMIT {$limit}");
             $stmt->execute(array($user));
         }
         else {
-            $stmt = $this -> conn_str -> prepare("SELECT * FROM book_issue_log");
+            $stmt = $this -> conn_str -> prepare("SELECT * FROM book_issue_log LIMIT {$limit}");
             $stmt->execute();
         }
         return $stmt -> fetchAll();
