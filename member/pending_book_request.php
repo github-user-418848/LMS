@@ -1,10 +1,6 @@
 <?php
-    
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
 
-    if (!$user -> Is_Logged_in() || $user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_member.php");
 
     $book = new Book();
     
@@ -17,11 +13,9 @@
         Redirect("Invalid ID", "books.php");
     }
 
-    $isbn = "";
-
 ?>
 <div class="row justify-content-center">
-    <div class="col-md-7">
+    <div class="col-md-7 text-center">
         <h1>Request Book</h1>
     </div>
     <div class="col-md-7">
@@ -34,12 +28,14 @@
                 <p><strong>Number of Book Copies Remaining</strong> <?=$book_detail -> copies ?></p><hr>
             </div>
             <div class="d-flex-wrap align-items-center justify-content-center">
-                <div class="col-md-6">
-                    <!-- <a id="back" class="btn">Cancel</a> -->
+                <div class="col-md-2">
+                    <a id="back" class="btn">Cancel</a>
+                </div>
+                <div class="col-md-5">
                     <input type="text" name="copies" id="copies" placeholder="Number of copies">
                     <input type="hidden" name="csrf_token" id="csrf_token" value="<?= $_SESSION["csrf_token"] ?>">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <input type="submit" value="Request Book" name="submit">
                 </div>
             </div>
@@ -64,7 +60,7 @@
         $pending_books -> Save();
 
         unset($_SESSION["csrf_token"]);
-        Redirect("Book {$isbn} has been requested. Please wait for the administrator to review for approval", "books.php");
+        Redirect("Book {$book_detail -> isbn} has been requested. Please wait for the administrator to review for approval", "books.php");
 
     }
     require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/footer.php");?>

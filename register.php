@@ -15,8 +15,8 @@
         <img src="<?php echo BASE_URL; ?>/static/img/cspc.png" alt="Logo" width="180" class="text-center">
         <h1 class="text-center">Register</h1>
         <form method="post">
-            <input type="text" name="username" placeholder="Username">
             <input type="email" name="email" placeholder="Email">
+            <input type="text" name="username" placeholder="Username">
             <input type="password" name="confirm_password" placeholder="Confirm Password">
             <input type="password" name="password" placeholder="Password">
             <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token'];?>">
@@ -38,11 +38,10 @@
                 $request -> EmailField($_POST["email"]),
                 $request -> TextField($_POST["username"]),
                 $request -> PasswordField($_POST["password"]),
-                "pending", "false",
+                "false", "false",
             );
 
             $user -> Create();
-            
             Redirect("You have been successfully registered. An administrator will review and approve the activation of your account", "index.php");
         }
         else {

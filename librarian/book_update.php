@@ -1,11 +1,7 @@
 <?php
     
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() || !$user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
-
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_librarian.php");
+    
     $book = new Book();
     
     $request = new Request_Validate(

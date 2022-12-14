@@ -1,10 +1,6 @@
 <?php
     
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() && !$user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_librarian.php");
 
     $user_detail = $user -> List($_SESSION["id"]);
 
@@ -17,7 +13,8 @@
         <form method="post">
             <input type="text" name="email" id="email" value="<?=$user_detail -> email ?>" placeholder="Email">
             <input type="text" name="username" id="username" value="<?=$user_detail -> username ?>" placeholder="Username">
-            <input type="text" name="password" id="password" placeholder="New Password">
+            <input type="password" name="confirm_password" id="password" placeholder="New Password">
+            <input type="text" name="password" id="password" placeholder="Confirm Password">
             <select name="is_admin" id="is_admin">
                 <option value="true" <?=$user_detail -> is_admin === "true" ? "selected": ""?>>Admin</option>
                 <option value="false"  <?=$user_detail -> is_admin === "false" ? "selected": ""?>>Member</option>
@@ -39,20 +36,26 @@
 
     if (isset($_POST["submit"])) {
 
-        $request = new Request_Validate($_POST, ["email", "username", "password", "is_admin", "csrf_token"]);
+        $request = new Request_Validate($_POST, ["email", "username", "confirm_password", "password", "is_admin", "csrf_token"]);
         $request -> CSRF($_POST["csrf_token"]);
 
-        $user = new User(
-            $request -> EmailField($_POST["email"]),
-            $request -> TextField($_POST["username"]),
-            $request -> PasswordField($_POST["password"]),
-            $request -> ChoicesField($_POST["is_admin"], array("true", "false")),
-            "true"
-        );
-        $user -> Update($_SESSION["id"]);
+        if ($request -> TextField($_POST["confirm_password"]) === $request -> TextField($_POST["password"])) {
 
-        unset($_SESSION["csrf_token"]);
-        Redirect("Account has been updated");
+            $user = new User(
+                $request -> EmailField($_POST["email"]),
+                $request -> TextField($_POST["username"]),
+                $request -> PasswordField($_POST["password"]),
+                $request -> ChoicesField($_POST["is_admin"], array("true", "false")),
+                "true"
+            );
+            $user -> Update($_SESSION["id"]);
+
+            unset($_SESSION["csrf_token"]);
+            Redirect("Account has been updated");
+        }
+        else {
+            Redirect("Two password fields doesn't match. Please try again.");
+        }
 
     }
     require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/footer.php");

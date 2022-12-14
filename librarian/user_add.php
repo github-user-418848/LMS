@@ -1,10 +1,6 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-    
-    if (!$user -> Is_Logged_in() || !$user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_librarian.php");
 
 ?>
 <div class="row justify-content-center">
@@ -13,7 +9,7 @@
         <form method="post">
             <input type="text" name="email" id="email" placeholder="Email">
             <input type="text" name="username" id="username" placeholder="Username">
-            <input type="text" name="password" id="password" placeholder="Password">
+            <input type="password" name="password" id="password" placeholder="Password">
             <select name="is_admin" id="is_admin">
                 <option value="true">Admin</option>
                 <option value="false">Member</option>
@@ -42,9 +38,7 @@
 </script>
 <?php
 
-
     if (isset($_POST["submit"])) {
-
         $request = new Request_Validate($_POST, ["email", "username", "password", "is_admin", "is_active", "csrf_token",]);
         $request -> CSRF($_POST["csrf_token"]);
 

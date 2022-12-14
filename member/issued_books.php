@@ -1,17 +1,14 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() || $user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_member.php");
+    
     $book_issue_log = new Book_Issue_Log();
     $book_issue_log_list = $book_issue_log -> List($_SESSION["username"]);
 
 ?>
 <div class="row justify-content-center text-center">
     <div class="col-md-12">
-        <h1>Book Issued Logs</h1>
+        <h1>Welcome <?=$_SESSION["username"]?>!</h1>
     </div>
 </div>
 <div class="row justify-content-center">
@@ -19,14 +16,10 @@
         <?php foreach ($book_issue_log_list as $book_issue): ?>
             <div class="col-md-7">
                 <div class="card">
-                    <div class="d-flex-wrap justify-content-center align-items-center">
-                        <div class="col-md-8">
-                            <p><strong>Book:</strong> <a href="books.php?s=<?= $book_issue -> book_isbn ?>&csrf_token=<?=$_SESSION['csrf_token']?>&submit"><?= $book_issue -> book_isbn ?></a></p><hr>
-                            <p><strong>Number of copies:</strong> <?= $book_issue -> copies ?></p><hr>
-                            <p><strong>Date Requested:</strong> <?= $book_issue -> date_requested ?></p><hr>
-                            <p><strong>Due Date:</strong> <?= $book_issue -> due_date ?></p><hr>
-                        </div>
-                    </div>
+                    <p><strong>Book:</strong> <a href="books.php?s=<?= $book_issue -> book_isbn ?>&csrf_token=<?=$_SESSION['csrf_token']?>&submit"><?= $book_issue -> book_isbn ?></a></p><hr>
+                    <p><strong>Number of copies:</strong> <?= $book_issue -> copies ?></p><hr>
+                    <p><strong>Date Requested:</strong> <?= $book_issue -> date_requested ?></p><hr>
+                    <p><strong>Due Date:</strong> <?= $book_issue -> due_date ?></p>
                 </div>
             </div>
         <?php endforeach; ?>

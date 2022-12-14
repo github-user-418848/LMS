@@ -26,10 +26,7 @@ class User extends DB {
             if($email === $stmtRow -> email && password_verify($password, $stmtRow -> password)) {
 
                 if ($stmtRow -> is_active === "false") {
-                    Redirect("This account has been disabled.");
-                }
-                else if ($stmtRow -> is_active === "pending") {
-                    Redirect("Please ask assistance from the administrator to activate this account.");
+                    Redirect("This account is disabled.");
                 }
                 else if ($stmtRow -> is_active === "true") {
                     
@@ -99,10 +96,15 @@ class User extends DB {
         if ($stmt -> rowCount() > 0 && $this -> email !== $_SESSION["email"]){
             Redirect("The provided email address has already been taken.");
         }
-        elseif ($this -> email === $_SESSION["email"]) {
+        else {
             $stmt = $this -> conn_str -> prepare("UPDATE user SET email=?, username=?, password=?, is_active=?, is_admin=? WHERE id=?");
             array_push($this -> data, $id);
             $stmt->execute($this -> data);
+
+            $_SESSION["email"] = $this -> email;
+            $_SESSION["username"] = $this -> username;
+            $_SESSION["is_admin"] = $this -> is_admin;
+
         }
     }
 

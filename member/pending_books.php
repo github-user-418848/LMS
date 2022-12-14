@@ -1,10 +1,6 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() || $user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_member.php");
 
     $pending_books = new Pending_Books();
     $pending_books_list = $pending_books -> List($_SESSION["id"]);
@@ -12,7 +8,7 @@
 ?>
 <div class="row justify-content-center text-center">
     <div class="col-md-12">
-        <h1>Pending Books</h1>
+        <h1>Requested Books</h1>
     </div>
 </div>
 <div class="row justify-content-center">
@@ -22,9 +18,9 @@
                 <div class="card">
                     <div class="d-flex-wrap justify-content-center align-items-center">
                         <div class="col-md-8">
-                            <p><strong>Book:</strong> <a href="books.php?s=<?= $pending -> book_isbn ?>&csrf_token=<?=$_SESSION['csrf_token']?>&submit"><?= $pending -> book_isbn ?></a></p><hr>
-                            <p><strong>Date Requested:</strong> <?= $pending -> date ?></p><hr>
-                            <p><strong>Number of copies:</strong> <?= $pending -> copies ?></p><hr>
+                            <h2>Book: <a href="books.php?s=<?= $pending -> book_isbn ?>&csrf_token=<?=$_SESSION['csrf_token']?>&submit"><?= $pending -> book_isbn ?></a></h2><br>
+                            <p><strong>Date Requested:</strong> <?= $pending -> date ?></p><br>
+                            <p><strong>Number of copies:</strong> <?= $pending -> copies ?></p><br>
                         </div>
                         <div class="col-md-4 text-right">
                             <a class="btn" href='pending_book_remove.php?id=<?=$pending -> id?>&token=<?=$_SESSION["csrf_token"] ?>'>
@@ -47,10 +43,4 @@
 </div>
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/footer.php");?>
-
-
-
-
-
-
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/footer.php");

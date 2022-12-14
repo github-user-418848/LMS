@@ -1,10 +1,6 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() || $user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_member.php");
 
     $book = new Book();
 
@@ -14,7 +10,7 @@
         $request -> CSRF($_GET["csrf_token"]);
         $search = $request -> TextField($_GET["s"], 1);
 
-        $book = new Book("%{$search}%", "%{$search}%", "%{$search}%", "%{$search}%", "%{$search}%");
+        $book = new Book("%{$search}%", "%{$search}%", "%{$search}%", "%{$search}%", "0");
     }
 
     $book_list = $book -> List();
@@ -56,7 +52,15 @@
                             <td><?= $books -> author ?></td>
                             <td><?= $books -> category ?></td>
                             <td><?= $books -> copies ?></td>
-                            <td><a class="btn" href='pending_book_request.php?id=<?=$books -> id?>&token=<?=$_SESSION["csrf_token"]?>'>Request</a></td>
+                            <td>
+                                <a class="btn" href='pending_book_request.php?id=<?=$books -> id?>&token=<?=$_SESSION["csrf_token"]?>'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="d-inline va-middle bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>&nbsp;
+                                Request
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </table>

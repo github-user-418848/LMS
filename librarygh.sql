@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2022 at 06:39 AM
+-- Generation Time: Dec 14, 2022 at 09:08 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.5
 
@@ -42,11 +42,9 @@ CREATE TABLE `book` (
 
 INSERT INTO `book` (`id`, `isbn`, `title`, `author`, `category`, `copies`) VALUES
 (2, '6900152484442', 'V for Vendetta', 'Alan Moore', 'Comics', 13),
-(4, '9783161484100', 'Mike Tyson : Undisputed Truth', 'Larry Sloman, Mike Tyson', 'Sports', 190),
+(4, '9783161484100', 'Mike Tyson : Undisputed Truth', 'Larry Sloman, Mike Tyson', 'Sports', 183),
 (5, '9789996245442', 'When Breath Becomes Air', 'Paul Kalanithi', 'Comics', 9),
-(6, '9885691200700', 'The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 20),
-(19, '1234', '1234', '1234', 'Comics', 0),
-(20, '123', 'test', 'test', 'Medical', 0);
+(6, '9885691200700', 'The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 17);
 
 -- --------------------------------------------------------
 
@@ -62,14 +60,6 @@ CREATE TABLE `book_issue_log` (
   `date_requested` date NOT NULL,
   `due_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `book_issue_log`
---
-
-INSERT INTO `book_issue_log` (`id`, `member_name`, `book_isbn`, `copies`, `date_requested`, `due_date`) VALUES
-(7, 'student@student.com', '123', 2, '2022-12-13', '0000-00-00'),
-(8, 'student@student.com', '1234', 3, '2022-12-13', '2022-12-16');
 
 -- --------------------------------------------------------
 
@@ -126,12 +116,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `username`, `password`, `is_active`, `is_admin`) VALUES
-(1, 'admin@admin.com', 'admin', '$2y$12$Wbeg2Cm.4bPU.dBC82lwiuk2eX/fkyd.TBnhph1cb/9MG7rCCOBC2', 'true', 'true'),
-(2, 'student@student.com', 'student@student.com', '$2y$12$tpLULnqJpjvnNaQ5.PYlp.RXrpg/WhPsVJUg76spIijFFJrImXvK2', 'true', 'false'),
-(4, 'user@user.com', 'user', '$2y$12$tpLULnqJpjvnNaQ5.PYlp.RXrpg/WhPsVJUg76spIijFFJrImXvK2', 'true', 'false'),
-(5, 'asd', 'asd@asd.asd', '$2y$12$gEhflZ2vmCz3Y79CgWKZ7e55Gz3kCfyaidZnKyRXl.Aky6fGlJOzG', 'false', 'true'),
-(6, 'test@test.test', 'test', '$2y$12$8Cwctjh0CaeCFa5Xnd/LPuzZxYGAt2bqAeWz8QMnK1rJwNhbTYGE6', 'true', 'false'),
-(7, 'asd@asd.asd', 'addsd', '$2y$12$V8g1zmJC22qqCsowl.D4led4edK3sMtTH5TqdDf88yGsy/LXhQE2O', 'true', 'false');
+(1, 'johndoe@gmail.com', 'John Doe', '$2y$12$9wE7jtV5Lc7f97GM3.Ewf.C0TpTNfssqn6KTQZhvFzkBCvxg.G2oe', 'true', 'true'),
+(8, 'arethaviafara@gmail.com', 'Aretha Viafara', '$2y$12$CLlO6V7ZKCKYS1Lw.gXZAOL6lXzWXrcjS5fmvVIfaIUIRbZz8u2F.', 'true', 'false');
 
 --
 -- Indexes for dumped tables
@@ -190,7 +176,7 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT for table `book_issue_log`
 --
 ALTER TABLE `book_issue_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -202,13 +188,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `pending_book_requests`
 --
 ALTER TABLE `pending_book_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

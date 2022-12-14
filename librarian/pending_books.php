@@ -1,10 +1,7 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() || !$user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_librarian.php");
+    
     $pending_books = new Pending_Books();
 
     if (isset($_GET["submit"])) {
@@ -50,7 +47,7 @@
                     <td><?=$pending -> email ?></td>
                     <td><a href='books.php?s=<?=$pending -> book_isbn ?>&csrf_token=<?=$_SESSION["csrf_token"] ?>&submit'><?=$pending -> book_isbn ?></a></td>
                     <td><?= $pending -> date ?></td>
-                    <td><?= $pending -> copies ?></td>
+                    <td><?= $pending -> request_copies ?></td>
                     <td>
                         <a href='pending_book_approve.php?id=<?=$pending -> id?>&token=<?=$_SESSION["csrf_token"] ?>'>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">

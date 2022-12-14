@@ -18,17 +18,17 @@ class Book extends DB {
     
     public function List($id=null, $limit=50) {
         if ($id !== null) {
-            $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE id=? ORDER BY id DESC");
+            $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE id=? AND copies !='0' ORDER BY id DESC");
             $stmt->execute(array($id));
             return $stmt -> fetch();
         }
         elseif($this -> title !== null) {
-            $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE isbn LIKE ? OR title LIKE ? OR author LIKE ? OR CATEGORY LIKE ? OR COPIES LIKE ? ORDER BY id DESC LIMIT {$limit}");
+            $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE isbn LIKE ? OR title LIKE ? OR author LIKE ? OR category LIKE ? AND copies != ? ORDER BY id DESC LIMIT {$limit}");
             $stmt->execute($this -> data);
             return $stmt -> fetchAll();
         }
         else {
-            $stmt = $this -> conn_str -> prepare("SELECT * FROM book ORDER BY id DESC LIMIT {$limit}");
+            $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE copies !='0' ORDER BY id DESC LIMIT {$limit}");
             $stmt->execute();
             return $stmt -> fetchAll();
         }

@@ -59,9 +59,7 @@ class Request_Validate {
     }
 
     public function PasswordField($value) {
-        if ($this -> Output($value)) {
-            return $this -> Output($this -> TextField(password_hash($value, PASSWORD_BCRYPT, ['cost' => SALT_COUNT])));
-        }
+        return password_hash($this -> TextField($this -> Output($value), 8, 64), PASSWORD_BCRYPT, ['cost' => SALT_COUNT]);
     }
 
     public function CheckBoxField($value) {

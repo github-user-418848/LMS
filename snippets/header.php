@@ -43,10 +43,10 @@
         <ul class="menu">
             <li><a href="<?=BASE_URL?>/member" <?=CheckActiveUrl("member/index")?>>Home</a></li>
             <li class="dropdown">
-                <a href="<?=BASE_URL?>/member/books.php" <?=CheckActiveUrl("member/books")?>>Books</a>
+                <a href="<?=BASE_URL?>/member/issued_books.php" <?=CheckActiveUrl("member/issued_books")?>>My Books</a>
                 <div class="dropdown-content">
-                    <a href="<?=BASE_URL?>/member/pending_books.php" <?=CheckActiveUrl("member/pending_books")?>>Pending</a>
-                    <a href="<?=BASE_URL?>/member/issued_books.php" <?=CheckActiveUrl("member/issued_books")?>>Issued</a>
+                <a href="<?=BASE_URL?>/member/books.php" <?=CheckActiveUrl("member/books")?>>Available Books</a>
+                    <a href="<?=BASE_URL?>/member/pending_books.php" <?=CheckActiveUrl("member/pending_books")?>>Requested Books</a>
                 </div>
             </li>
             <li><a href="<?=BASE_URL?>/member/account_update.php" <?=CheckActiveUrl("member/account")?>>My Account</a></li>

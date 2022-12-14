@@ -1,12 +1,6 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/header.php");
-
-    if (!$user -> Is_Logged_in() || !$user -> Is_Admin()) {
-        Redirect(location: BASE_URL);
-    }
-
-    $user = new User();
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/" . basename(dirname(dirname(__FILE__))) . "/snippets/user_librarian.php");
     
     if (isset($_GET["submit"])) {
         $request = new Request_Validate($_GET, ["s", "csrf_token"]);
@@ -47,7 +41,7 @@
                         <th colspan="2">Actions</th>
                     </tr>
                 <?php foreach ($user_list as $key => $users): ?>
-                    <tr>
+                    <tr <?=($users-> is_active === "false") ? "style='background: #ffff0061;'" : ""?>>
                         <td><?= $users -> email ?></td>
                         <td><?= $users -> username ?></td>
                         <td><?= $users -> is_active ?></td>

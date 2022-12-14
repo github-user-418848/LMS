@@ -37,7 +37,7 @@ class Pending_Books extends DB {
         }
         else {
             $stmt = $this -> conn_str -> prepare(
-                "SELECT pending_book_requests.id 'id', pending_book_requests.copies 'copies', user.id 'user_id', user.username, user.email, 
+                "SELECT pending_book_requests.id 'id', pending_book_requests.copies 'request_copies', user.id 'user_id', user.username, user.email, 
                 book.id 'book_id', book.copies 'copies', pending_book_requests.book_isbn, pending_book_requests.date 
                 FROM pending_book_requests join user on (pending_book_requests.member_name=user.username) 
                 join book on (pending_book_requests.book_isbn=book.isbn) ORDER BY pending_book_requests.id DESC LIMIT {$limit}"
@@ -100,20 +100,11 @@ class Pending_Books extends DB {
                 $stmt2 -> execute(array($this -> user, $this -> book, $this -> copies));
             }
             else {
-                Redirect("Number of copies should be less than at least {$book -> copies}");
+                Redirect("Number of copies should be less than {$book -> copies}");
             }
         }
         else {
             Redirect("You have already requested for this book");
         }
-        // $stmt = $this -> conn_str -> prepare("SELECT * FROM book WHERE isbn=?");
-        // $stmt->execute(array($this -> book));
-        // $book = $stmt -> fetch();
-
-        // if ($this -> copies <= $book -> copies) {
-        // }
-        // else {
-        //     Redirect("Number of copies should be less than {$book -> copies}");
-        // }
     }
 }

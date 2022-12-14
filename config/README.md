@@ -9,15 +9,15 @@ librarygh
 ### Admin
 ----------
 
-username: admin@admin.com
-password: password2022
+username: johndoe@gmail.com
+password: 12345678
 
 ----------
 ### Student
 ----------
 
-username: student@student.com
-password: student2022
+username: arethaviafara@gmail.com
+password: 12345678
 
 ----------
 ### Encryption
