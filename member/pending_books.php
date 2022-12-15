@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="d-flex-wrap justify-content-center align-items-center">
                         <div class="col-md-8">
-                            <h2>Book: <a href="books.php?s=<?= $pending -> book_isbn ?>&csrf_token=<?=$_SESSION['csrf_token']?>&submit"><?= $pending -> book_isbn ?></a></h2><br>
+                            <p><strong>Book:</strong> <a href="books.php?s=<?= $pending -> book_isbn ?>&csrf_token=<?=$_SESSION['csrf_token']?>&submit"><?= $pending -> book_isbn ?></a></p><br>
                             <p><strong>Date Requested:</strong> <?= $pending -> date ?></p><br>
                             <p><strong>Number of copies:</strong> <?= $pending -> copies ?></p><br>
                         </div>

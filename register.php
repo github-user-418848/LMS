@@ -22,7 +22,7 @@
             <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token'];?>">
             <input type="submit" value="Register" name="submit"/>
         </form>
-        <a href="index.php">Back to Login</a>
+        <a href="/LMS/">Back to Login</a>
     </div>
 </div>
 <?php

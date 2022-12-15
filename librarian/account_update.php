@@ -29,7 +29,7 @@
                 </div>
             </div>
         </form>
-        <a href="account_deactivate.php?ccsrf_token=<?= $_SESSION["csrf_token"] ?>">Deactivate My Account</a>
+        <a href="account_deactivate.php?csrf_token=<?= $_SESSION["csrf_token"] ?>">Deactivate My Account</a>
     </div>
 </div>
 <?php

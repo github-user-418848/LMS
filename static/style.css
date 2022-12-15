@@ -5,8 +5,6 @@
     --secondary-variant: #00632F;
     --tertiary: #e6e6e6;
     --light: #fcfcfc;
-
-    /* #F28005 */
     --font-family-default: 'Jost', sans-serif;
     --font-family-header: 'Playfair Display', sans-serif;
     --body-width: 1400px;
@@ -214,6 +212,7 @@ hr {
 }
 
 .table-container {
+    /* min-height: 450px; */
 	max-height: 562px;
 	overflow: auto;
 	border: 2px solid rgb(233, 233, 233);
@@ -284,10 +283,11 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
 	font-weight: 600;
 	letter-spacing: 1px;
 	color: var(--light);
-	padding: .85rem 20px;
+	padding: clamp(0.55rem, 0.49rem + 0.3vw, 0.85rem) 20px;
 	text-transform: uppercase;
 	background: var(--primary);
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 input[type="submit"]:hover {

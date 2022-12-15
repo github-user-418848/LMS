@@ -31,7 +31,7 @@
     define("BASE_URL", "//" . HOSTNAME . "/" . DIR);
     define("CURRENT_URL", $_SERVER['REQUEST_URI']);
 
-    // Sessions
+    // Token Sessions
     
     if (!isset($_SESSION["csrf_token"])) {
         $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(16));
@@ -46,7 +46,7 @@
     header("Content-Security-Policy: script-src 'self' 'nonce-" . $_SESSION['nonce'] . "'");
     date_default_timezone_set("Asia/Manila");
     
-    // Globals
+    // Global Functions
 
     function CheckActiveUrl($url) {
         return ($_SERVER['PHP_SELF'] == "/" . DIR . "/" . $url . ".php") ? "class='active'" : "";
@@ -57,6 +57,30 @@
         header("Location: {$location}");
         die();
     }
+
+    function Minify($buffer) {
+
+        $search = array(
+            '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+            '/(\s)+/s',         // shorten multiple whitespace sequences
+            '/<!--(.|\s)*?-->/' // Remove HTML comments
+        );
+
+        $replace = array(
+            '>',
+            '<',
+            '\\1',
+            ''
+        );
+
+        $buffer = preg_replace($search, $replace, $buffer);
+
+        return $buffer;
+    }
+
+
+    // Database Connection
 
     class DB {
 
@@ -73,8 +97,6 @@
                 $this -> conn_str -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
                 $this -> conn_str -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this -> conn_str -> setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-                // Use in production
-                // $this -> conn_str -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
             }
             catch(PDOException $e) {
                 die($e -> getMessage());
@@ -82,3 +104,7 @@
 
         }
     }
+
+    // Header Navbar Reference: https://1stwebdesigner.com/pure-css-navigation-menus/
+
+    // I have maximized the security measures the best that I could, here is the reference: https://owasp.org/www-project-top-ten/2017/Top_10

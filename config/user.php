@@ -80,14 +80,13 @@ class User extends DB {
             return $stmt -> fetchAll();
         }
         else {
-            $stmt = $this -> conn_str -> prepare("SELECT * FROM user WHERE id != {$_SESSION["id"]} LIMIT 50");
+            $stmt = $this -> conn_str -> prepare("SELECT * FROM user WHERE id != {$_SESSION["id"]} ORDER BY id DESC LIMIT 50");
             $stmt->execute();
             return $stmt -> fetchAll();
         }
     }
     
     public function Update($id) {
-
 
         $stmt = $this -> conn_str -> prepare("SELECT * FROM user WHERE email = :email LIMIT 1");
         $stmt -> execute(array(":email" => $this -> email));

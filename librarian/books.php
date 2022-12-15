@@ -35,14 +35,19 @@
             <div class="col-md-12">
                 <div class="table-container">
                     <table class="mx-auto table" cellspacing="0">
-                    <tr class="table-head">
-                        <th>ISBN</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Copies</th>
-                        <th colspan="2">Actions</th>
-                    </tr>
+                        <tr class="table-head">
+                            <th colspan="100%">
+                                
+                            </th>
+                        </tr>
+                        <tr class="table-head" style="top: 15%">
+                            <th>ISBN</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Copies</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
                     <?php foreach ($book_list as $books): ?>
                         <tr>
                             <td><?= $books -> isbn ?></td>

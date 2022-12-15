@@ -17,7 +17,7 @@ class Request_Validate {
             return $this -> Output($value);
         }
         else {
-            Redirect("It should be longer than {$min_length} characters and should not exceed of {$max_length} characters", $this -> redirect);
+            Redirect(($_SERVER["REQUEST_METHOD"] === "POST") ? ucfirst(str_replace("_", "", array_search($value, $this -> method))) . " should be longer than {$min_length} characters and should not exceed of {$max_length} characters." :  "It should be longer than {$min_length} characters and should not exceed of {$max_length} characters", $this -> redirect);
         }
     }
     
@@ -45,7 +45,7 @@ class Request_Validate {
             return $this -> Output($value);
         }
         else {
-            Redirect("Input must be an email. Please try again.", $this -> redirect);
+            Redirect(($_SERVER["REQUEST_METHOD"] === "POST") ? ucfirst(str_replace("_", "", array_search($value, $this -> method))) . " field is not valid. Please try again." : "Input must be an email. Please try again.", $this -> redirect);
         }
     }
 

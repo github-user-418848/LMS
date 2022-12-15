@@ -4,7 +4,7 @@
 
     $books = new Book();
     $pending_books = new Pending_Books();
-    $book_issue_log_list = new Book_Issue_Log();
+    $issued_book_log = new Issued_Book_Log();
 
 ?>
 <div class="row justify-content-center">
@@ -15,12 +15,12 @@
         <div class="card">
             <h2>Issued Books</h2>
             <hr>
-            <?php if (empty($book_issue_log_list -> List())): ?>
-                <h3 style="min-height: 100%" class="my-auto d-flex align-items-center justify-content-center">
+            <?php if (empty($issued_book_log -> List())): ?>
+                <h3 style="min-height: 120px" class="my-auto d-flex align-items-center justify-content-center">
                     No Books Added Yet
                 </h3>
             <?php else:?>
-                <?php foreach ($book_issue_log_list -> List(limit:3) as $book): ?>
+                <?php foreach ($issued_book_log -> List(limit:3) as $book): ?>
                     <p><strong>User</strong> <?=$book -> member_name?></p>
                     <p><strong>Book</strong> <?=$book -> book_isbn?></p>
                     <small>
@@ -54,11 +54,11 @@
             </div>
             <div class="col-md-12">
                 <div class="card">
-                    <h2>Requests Pending for Approval</h2>
+                    <h2>Book Requests Pending for Approval</h2>
                     <hr>
                     <?php if (empty($pending_books -> List())): ?>
                         <h3 style="min-height: 120px" class="my-auto d-flex align-items-center justify-content-center">
-                            No Approval Requests Pending
+                            No Requests Pending Yet
                         </h3>
                     <?php else:?>
                         <?php foreach ($pending_books -> List(limit:3) as $pending): ?>

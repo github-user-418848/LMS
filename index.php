@@ -38,7 +38,7 @@
 ?>
 <div class="row justify-content-center">
     <div class="col-md-5 text-center">
-        <img src="<?php echo BASE_URL; ?>/static/img/cspc.png" alt="Logo" width="180" class="text-center">
+        <a href="https://cspc.edu.ph" target="_blank"><img src="<?php echo BASE_URL; ?>/static/img/cspc.png" alt="Logo" width="180" class="text-center"></a>
         <h1 class="text-center">Login</h1>
         <form method="post">
             <input type="text" name="email" placeholder="Email">

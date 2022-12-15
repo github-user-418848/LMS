@@ -9,14 +9,14 @@ librarygh
 ### Admin
 ----------
 
-username: johndoe@gmail.com
+username: johndoe@gmail.com <br>
 password: 12345678
 
 ----------
 ### Student
 ----------
 
-username: arethaviafara@gmail.com
+username: arethaviafara@gmail.com <br>
 password: 12345678
 
 ----------

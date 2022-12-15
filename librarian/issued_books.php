@@ -18,14 +18,13 @@
         </div>
     </div>
     <?php if (empty($issued_book_log_list)): ?>
-       <hr><h1 class="text-center d-flex align-items-center justify-content-center" style="min-height: 50vh">No Books Issued</h1><hr>
+       <hr><h1 class="text-center d-flex align-items-center justify-content-center" style="min-height: 50vh">No Issued Books</h1><hr>
     <?php elseif (!empty($issued_book_log_list)): ?>
     <div class="row justify-content-center align-items-stretch">
         <div class="table-container">
             <table class="mx-auto table" cellspacing="0" style="overflow-x: auto">
                 <tr class="table-head">
                     <th>User</th>
-                    <th>Email</th>
                     <th>ISBN</th>
                     <th>Date Requested</th>
                     <th>Due Date</th>
@@ -35,7 +34,6 @@
                 <?php foreach ($issued_book_log_list as $book): ?>
                 <tr>
                     <td><a href='user_update.php?id=<?=$book -> user_id ?>&token=<?=$_SESSION["csrf_token"] ?>'><?=$book -> member_name ?></a></td>
-                    <td><?=$book -> member_name ?></td>
                     <td><a href='books.php?s=<?=$book -> book_isbn ?>&csrf_token=<?=$_SESSION["csrf_token"] ?>&submit'><?=$book -> book_isbn ?></a></td>
                     <td><?= $book -> date_requested ?></td>
                     <td><?= $book -> due_date ?></td>

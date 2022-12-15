@@ -35,7 +35,6 @@
             <table class="mx-auto table" cellspacing="0" style="overflow-x: auto">
                 <tr class="table-head">
                     <th>User</th>
-                    <th>Email</th>
                     <th>ISBN</th>
                     <th>Date Requested</th>
                     <th>Book Copies</th>
@@ -44,7 +43,6 @@
                 <?php foreach ($pending_books_list as $pending): ?>
                 <tr>
                     <td><a href='user_update.php?id=<?=$pending -> user_id ?>&token=<?=$_SESSION["csrf_token"] ?>'><?=$pending -> username ?></a></td>
-                    <td><?=$pending -> email ?></td>
                     <td><a href='books.php?s=<?=$pending -> book_isbn ?>&csrf_token=<?=$_SESSION["csrf_token"] ?>&submit'><?=$pending -> book_isbn ?></a></td>
                     <td><?= $pending -> date ?></td>
                     <td><?= $pending -> request_copies ?></td>
